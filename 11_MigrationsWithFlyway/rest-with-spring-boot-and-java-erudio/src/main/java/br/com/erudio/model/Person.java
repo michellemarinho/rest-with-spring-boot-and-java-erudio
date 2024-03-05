@@ -1,31 +1,39 @@
-package br.com.erudio.data.vo.v1;
+package br.com.erudio.model;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+//selecionar sempre import jakarta
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-@JsonPropertyOrder({"id",  "address", "firstName", "lastName", "gender"})
-public class PersonVO implements Serializable{
+@Entity  //Essa anotation representa q essa classe se conecta com o banco
+@Table(name = "person") //Essa anotation é para dizer ao hibernate que na pratica esse onjeto 'Person' significa 'person' 
+public class Person implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)//Estratégia usada para incrementar o Id
 	private Long id;
-
-	@JsonProperty ("first_name")
+	
+	@Column (name = "first_name", nullable = false, length = 80)//indica como será chamado no banco
 	private String firstName;
 	
-	@JsonProperty ("last_name")
+	@Column (name = "last_name", nullable = false, length = 80) //indica como será chamado no banco
 	private String lastName;
 	
+	@Column (nullable = false, length = 100)//garante q não terá um dado inválido e define o tamanho do campo
 	private String address;
 	
-	@JsonIgnore
+	@Column (nullable = false, length = 6)
 	private String gender;
 	
 	//Seleciona a opção Source/Construtor using Fields
-	public PersonVO() {}
+	public Person() {}
 
 	//Seleciona a opção Source/Generate Getters and Setters
 	public Long getId() {
@@ -88,7 +96,7 @@ public class PersonVO implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PersonVO other = (PersonVO) obj;
+		Person other = (Person) obj;
 		if (address == null) {
 			if (other.address != null)
 				return false;
