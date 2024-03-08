@@ -2,6 +2,7 @@ package br.com.erudio.controllers;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.erudio.data.vo.v1.PersonVO;
 import br.com.erudio.data.vo.v2.PersonVOV2;
 import br.com.erudio.services.PersonServices;
-import br.com.erudio.util.MediaType;
 
 //contém vários métodos manipuladores
 @RestController
@@ -28,44 +28,33 @@ public class PersonController {
 	
 	//Pode-se usar o browser para acessar o GET, mas o POST, PUT e DELETE só podem ser acessados pelo Postman. 
 	
-	@GetMapping(produces = {MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML ,
-					MediaType.APPLICATION_YML})
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<PersonVO> findAll () {
 			return service.findAll();
 		}
 	
 	//"http://localhost:8080/person/1" me devolve os dados do boneco q tá descrito na classe "PersonServices"
 	@GetMapping(value = "/{id}",
-			produces = {MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML ,
-					MediaType.APPLICATION_YML})
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public PersonVO findById (@PathVariable(value = "id")Long id) {
 			return service.findById(id);
 		}
 	
 	
-	@PostMapping(
-			consumes = {MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML ,
-					MediaType.APPLICATION_YML},
-			produces = {MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML ,
-					MediaType.APPLICATION_YML})
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public PersonVO create (@RequestBody PersonVO person) {
 			return service.create(person); //cria
 		}
 	//Foi incluído esse novo PostMapping por conta da inclusão do campo Biday
-	@PostMapping(value = "/v2", 
-			consumes = {MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML ,
-					MediaType.APPLICATION_YML},
-			produces = {MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML ,
-					MediaType.APPLICATION_YML})
+	@PostMapping(value = "/v2", consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public PersonVOV2 createV2 (@RequestBody PersonVOV2 person) {
 			return service.createV2(person); //cria
 		}
 	
-	@PutMapping(
-			consumes = {MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML , 
-					MediaType.APPLICATION_YML},	
-			produces = {MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML , 
-					MediaType.APPLICATION_YML})
+	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public PersonVO update (@RequestBody PersonVO person) {
 				return service.update(person); //atualiza
 		}

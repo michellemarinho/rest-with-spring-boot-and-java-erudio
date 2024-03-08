@@ -18,6 +18,7 @@
 		<dozer-core.version>6.4.0</dozer-core.version>
 	</properties>
 	<dependencies>
+		<!-- Dependencias do Spring primeiro -->
 		  <dependency>
 	    <groupId>org.springframework.data</groupId>
 	    <artifactId>spring-data-envers</artifactId>
@@ -33,7 +34,14 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		
-			<!-- Essa dependencia é para permitir serializar em Json e XML-->
+		<dependency>
+			<groupId>org.springframework.hateoas</groupId>
+			<artifactId>spring-hateoas</artifactId>
+		</dependency>
+		
+		<!-- Aqui são listadas dependencias de terceiros-->
+		
+		<!-- Essa dependencia é para permitir serializar em Json e XML-->
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-xml</artifactId>
