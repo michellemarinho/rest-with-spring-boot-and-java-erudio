@@ -22,20 +22,15 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
 	private String gender;
 	
 	//Seleciona a opção Source/Construtor using Fields
-	public PersonVO() {}
+	public PersonVO() {} //construtor default
 
 	//Seleciona a opção Source/Generate Getters and Setters
-	public Long key() {
+	public Long getKey() {	
 		return key;
 	}
 	public void setKey(Long key) {
 		this.key = key;
 	}
-	
-	public Long getKey() {
-		return key;
-	}
-
 	public String getFirstName() {
 		return firstName;
 	}

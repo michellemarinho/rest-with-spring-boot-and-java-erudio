@@ -1,6 +1,5 @@
 package br.com.erudio.integrationtests.swagger;
 
-
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,5 +27,5 @@ public class SwaggerIntegrationTest extends AbstractIntegrationTest{
 						.asString();
 		assertTrue(content.contains("Swagger UI"));
 	}
-
+	
 }

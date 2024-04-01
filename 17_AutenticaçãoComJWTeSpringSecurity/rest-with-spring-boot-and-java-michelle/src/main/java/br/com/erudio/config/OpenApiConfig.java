@@ -11,14 +11,16 @@ import io.swagger.v3.oas.models.info.License;
 public class OpenApiConfig {
 	
 		@Bean //URL para testes: http://localhost:8080/v3/api-docs
-		OpenAPI customOpenAPI() {
+		public OpenAPI customOpenAPI() {
 			return new OpenAPI()
 				.info(new Info()
 					.title("Restful MichelleAPI SpringBoot 3.2.3")
 					.version("v1")
 					.description("1a API da Michelle")
-					.termsOfService("")
-					.license(new License().name("Apache 2.0")
+					.termsOfService("https://pub.erudio.com.br/meus-cursos")
+					.license(
+						new License()
+							.name("Apache 2.0")
 						.url("http://google.com")
 						)
 				);

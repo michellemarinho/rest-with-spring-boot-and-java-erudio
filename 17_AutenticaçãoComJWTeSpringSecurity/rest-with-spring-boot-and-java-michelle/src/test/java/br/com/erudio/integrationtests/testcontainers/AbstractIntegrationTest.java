@@ -16,9 +16,8 @@ public class AbstractIntegrationTest {
 
 	static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext>{
 		
-		//Acessar o site https://hub.docker.com/_/mysql buscar a versão mais nova para utilizar na linha abaixo, pois a versão pode estar depreciada, e copiar sempre a última versão
+		static MySQLContainer<?> mysql = new MySQLContainer<> ("mysql:8.0.36"); //Acessar o site https://hub.docker.com/_/mysql buscar a versão mais nova para utilizar na linha abaixo, pois a versão pode estar depreciada, e copiar sempre a última versão
 		//do tópico "Supported tags and respective Dockerfile links" --8.0.36
-		static MySQLContainer<?> mysql = new MySQLContainer<> ("mysql:8.0.36");
 		
 		private static void startContainers() {
 			Startables.deepStart(Stream.of(mysql)).join();
@@ -35,22 +34,14 @@ public class AbstractIntegrationTest {
 		@SuppressWarnings({"unchecked", "rawtypes"})
 		@Override
 		public void initialize(ConfigurableApplicationContext applicationContext) {
-			startContainers(); 
-			
-		//Agora a gente vai configurar o nosso ambiente.
-		/*A gente vai acessar o ambiente do spring, vai pegar as configuraçãoes do teste3 container e 
-		 * vai setar essas configurações do teste container no contexto do spring. */	
-			
-		ConfigurableEnvironment environment = applicationContext.getEnvironment();
-		
-		//Aqui vai Acessar o teste Container e criar a conexão
-		MapPropertySource testcontainers = new MapPropertySource(
+			startContainers(); 		
+		ConfigurableEnvironment environment = applicationContext.getEnvironment();		
+		MapPropertySource testcontainers = new MapPropertySource( //Aqui vai Acessar o teste Container e criar a conexão
 				"testcontainers",
 				(Map) createConnectionConfiguration());
 			environment.getPropertySources().addFirst(testcontainers);
-
 		}
-
 	}
-
 }
+//Agora a gente vai configurar o nosso ambiente. A gente vai acessar o ambiente do spring, vai pegar as configuraçãoes do teste3 container e 
+//vai setar essas configurações do teste container no contexto do spring.

@@ -1,6 +1,7 @@
 package br.com.erudio.controllers;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,29 +17,28 @@ import br.com.erudio.data.vo.v1.BookVO;
 import br.com.erudio.services.BookServices;
 import br.com.erudio.util.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 //contém vários métodos manipuladores
 @RestController
-@RequestMapping("api/book/v1")//Essa prática de versionar prevê futuras mudanças
+@RequestMapping("/api/book/v1")//Essa prática de versionar prevê futuras mudanças
 @Tag(name = "Book", description = "Endpoints for Managing Book")
 public class BookController {
 	
 	@Autowired //Com a inclusão do Autowired, o spring boot vai cuidar da instanciação de forma dinamica em tempo de execução
 	private BookServices service; //injeção de dependencias
-	//private BookServices service = new BookServices();
 	
 	//Pode-se usar o browser para acessar o GET, mas o POST, PUT e DELETE só podem ser acessados pelo Postman. 
-	
-	@GetMapping(produces = {MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML ,MediaType.APPLICATION_YML})
+	@GetMapping(
+			produces = {MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML ,MediaType.APPLICATION_YML})
 	@Operation(summary = "Finds all Book", description = "Finds all Book",
 	tags = {"Book"},
 	responses = {
-			@ApiResponse(description = "Sucess", responseCode = "200", 
+			@ApiResponse(description = "Success", responseCode = "200", 
 					content = {
 						@Content(
 							mediaType = "application/json",
@@ -59,10 +59,10 @@ public class BookController {
 	//"http://localhost:8080/book/1" me devolve os dados do boneco q tá descrito na classe "BookServices"
 	@GetMapping(value = "/{id}",
 			produces = {MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML ,MediaType.APPLICATION_YML})
-	@Operation(summary = "Finds a Book", description = "Finds all Book",
+	@Operation(summary = "Finds a Book", description = "Finds a Book",
 	tags = {"Book"},
 	responses = {
-			@ApiResponse(description = "Sucess", responseCode = "200", 
+			@ApiResponse(description = "Success", responseCode = "200", 
 					content = @Content(schema = @Schema(implementation = BookVO.class))
 							),
 			@ApiResponse(description = "No Content", responseCode = "204", content = @Content),
@@ -76,15 +76,15 @@ public class BookController {
 			return service.findById(id);
 		}
 	
-	
+
 	@PostMapping(
 			consumes = {MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML ,MediaType.APPLICATION_YML},
 			produces = {MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML ,MediaType.APPLICATION_YML})
-	@Operation(summary = "Add a new Book", 
+	@Operation(summary = "Adds a new Book", 
 	description = "Adds a new Book by passing in a JSON, XML or YML",
 	tags = {"Book"},
 	responses = {
-			@ApiResponse(description = "Sucess", responseCode = "200", 
+			@ApiResponse(description = "Success", responseCode = "200", 
 					content = @Content(schema = @Schema(implementation = BookVO.class))
 							),
 			@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -113,7 +113,7 @@ public class BookController {
 	description = "Updates a Book by passing in a JSON, XML or YML",
 	tags = {"Book"},
 	responses = {
-			@ApiResponse(description = "Sucess", responseCode = "200", 
+			@ApiResponse(description = "Updated", responseCode = "200", 
 					content = @Content(schema = @Schema(implementation = BookVO.class))
 							),
 			@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -132,7 +132,7 @@ public class BookController {
 	description = "Deletes a Book by passing in a JSON, XML or YML",
 	tags = {"Book"},
 	responses = {
-			@ApiResponse(description = "No content", responseCode = "204", content = @Content),
+			@ApiResponse(description = "No Content", responseCode = "204", content = @Content),
 			@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
 			@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
 			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
@@ -142,6 +142,5 @@ public class BookController {
 	public ResponseEntity<?> delete (@PathVariable(value = "id")Long id) {
 				service.delete(id); //apaga
 				return ResponseEntity.noContent().build(); //para retornar o status code de erro, correto
-		}
+	}
 }
-

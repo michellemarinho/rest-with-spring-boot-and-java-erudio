@@ -2,6 +2,7 @@ package br.com.erudio.integrationtests.vo;
 
 import java.io.Serializable;
 
+
 public class PersonVO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -12,10 +13,7 @@ public class PersonVO implements Serializable{
 	private String address;
 	private String gender;
 	
-	//Seleciona a opção Source/Construtor using Fields
 	public PersonVO() {}
-
-	//Seleciona a opção Source/Generate Getters and Setters
 
 	public Long getId() {
 		return id;
@@ -57,7 +55,6 @@ public class PersonVO implements Serializable{
 		this.gender = gender;
 	}
 
-	//Seleciona a opção Source/Generate hashCode() and equals()...
 	@Override
 	public int hashCode() {
 		final int prime = 31;

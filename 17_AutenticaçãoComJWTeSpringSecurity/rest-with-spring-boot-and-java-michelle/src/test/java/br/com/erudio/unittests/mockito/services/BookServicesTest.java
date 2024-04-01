@@ -67,6 +67,7 @@ class BookServicesTest {
 	@Test
 	void testCreate() {
 		Book entity = input.mockEntity(1); //retorna a book, mas não trás o Id, pois não foi persistida ainda, mas a devolução dela já terá id simulando o acesso ao banco
+		entity.setId(1L);
 		
 		Book persisted = entity; //Aqui já após buscar o id do repositório
 		persisted.setId(1L);
@@ -90,7 +91,8 @@ class BookServicesTest {
 	
 	}
 	
-	void testCreatWithNullBook() {
+	@Test
+	void testCreateWithNullBook() {
 		Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> {
 			service.create(null);
 		});
@@ -102,7 +104,6 @@ class BookServicesTest {
 	@Test
 	void testUpdate() {
 		Book entity = input.mockEntity(1); //retorna a book, mas não trás o Id, pois não foi persistida ainda, mas a devolução dela já terá id simulando o acesso ao banco
-		entity.setId(1L);
 		
 		Book persisted = entity; //Aqui já após buscar o id do repositório
 		persisted.setId(1L);
@@ -126,6 +127,7 @@ class BookServicesTest {
 		assertNotNull(result.getLaunchDate()); //nesse teste apenas verificamos se a data não está nula
 	}
 
+	@Test
 	void testUpdateWithNullBook() {
 		Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> {
 			service.update(null);
@@ -154,10 +156,12 @@ class BookServicesTest {
 		when(repository.findAll()).thenReturn(list);
 		
 		var people = service.findAll(); //vai executar o código e no lugar do repositorio vai injetar o mock
+		
 		assertNotNull(people);//garante q não será null;
 		assertEquals(14, people.size()); //14 é o tamanho do for na classe MockBook
 		
 		var bookOne = people.get(1); //vai executar o código e no lugar do repositorio vai injetar o mock
+		
 		assertNotNull(bookOne);//garante q não será null
 		assertNotNull(bookOne.getKey());
 		assertNotNull(bookOne.getLinks());
@@ -169,6 +173,7 @@ class BookServicesTest {
 		assertNotNull(bookOne.getLaunchDate()); //nesse teste apenas verificamos se a data não está nula
 		
 		var bookFour = people.get(4); //vai executar o código e no lugar do repositorio vai injetar o mock
+		
 		assertNotNull(bookFour);//garante q não será null
 		assertNotNull(bookFour.getKey());
 		assertNotNull(bookFour.getLinks());
@@ -180,6 +185,7 @@ class BookServicesTest {
 		assertNotNull(bookFour.getLaunchDate()); //nesse teste apenas verificamos se a data não está nula
 		
 		var bookSeven = people.get(7); //vai executar o código e no lugar do repositorio vai injetar o mock
+		
 		assertNotNull(bookSeven);//garante q não será null
 		assertNotNull(bookSeven.getKey());
 		assertNotNull(bookSeven.getLinks());

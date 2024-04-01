@@ -52,15 +52,5 @@ public class MockPerson {
         person.setLastName("Last Name Test" + number);
         return person;
     }
-    
-//    public PersonVOV2 mockVOV2(Integer number) {
-//        PersonVO person = new PersonVO();
-//        person.setAddress("Addres Test" + number);
-//        person.setFirstName("First Name Test" + number);
-//        person.setGender(((number % 2)==0) ? "Male" : "Female");
-//        person.setKey(number.longValue());
-//        person.setLastName("Last Name Test" + number);
-//        return person;
-//    }
 
 }
