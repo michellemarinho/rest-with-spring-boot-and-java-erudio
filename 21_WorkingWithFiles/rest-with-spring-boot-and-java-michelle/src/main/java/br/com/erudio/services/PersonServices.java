@@ -27,7 +27,7 @@ import jakarta.transaction.Transactional;
 //serve para que o spring Boot encare esse cara como um objeto q sera injetado em outras classes da nossa aplicacao.
 //Integrando a API ao banco
 
-@Service //Poderia ser anotation Componet tbm q daria no mesmo e funcionaria
+@Service //Poderia ser anotation Component tbm q daria no mesmo e funcionaria
 public class PersonServices {
 	
 	private Logger logger = Logger.getLogger(PersonServices.class.getName());

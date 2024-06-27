@@ -26,7 +26,7 @@ public class Book implements Serializable{
 	@Column (nullable = false, length = 180)//indica como será chamado no banco e tamanho do campo
 	private String author;
 	
-	@Column (name = "launch_date", nullable = false) //indica como será chamado no banco
+	@Column (name = "launch_date", nullable = false) //indica como será chamada a coluna no banco
 	@Temporal(TemporalType.DATE) //sempre do jakarta
 	private Date launchDate; //java.util
 	

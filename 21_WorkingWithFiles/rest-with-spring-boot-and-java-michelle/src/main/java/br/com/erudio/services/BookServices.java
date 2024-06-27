@@ -17,6 +17,7 @@ import br.com.erudio.model.Book;
 import br.com.erudio.repositories.BookRepository;
 
 
+
 //Para que serve a anotation @Service?
 //serve para que o spring Boot encare esse cara como um objeto q será injetado em outras classes da nossa aplicação.
 //Integrando a API ao banco
@@ -45,7 +46,7 @@ public class BookServices {
 		
 		logger.info("Finding one book!");
 
-		//Qdo acessamos o findbyid nossa classe vai ao bd e acessa o repositório e busca o objeto por id
+		//Qdo acessamos o findbyid nossa classe vai ao bd e acessa o repositorio e busca o objeto por id
 		var entity = repository.findById(id)
 			.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!")); //Msg qdo n achar o Id		
 		var vo = DozerMapper.parseObject(entity, BookVO.class);
@@ -60,7 +61,7 @@ public class BookServices {
 		logger.info("Creating one book!");
 		var entity = DozerMapper.parseObject(book, Book.class);
 		var vo = DozerMapper.parseObject(repository.save(entity), BookVO.class); 
-		vo.add(linkTo(methodOn(BookController.class).findById(vo.getKey())).withSelfRel()); //SelfRel auto-relacionamento
+		vo.add(linkTo(methodOn(BookController.class).findById(vo.getKey())).withSelfRel()); //SelfRel auto relacionamento
 		return vo;
 	}
 	
